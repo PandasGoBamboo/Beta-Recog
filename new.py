@@ -1,4 +1,5 @@
 import xml.etree.ElementTree as ET
+import pandas as pd
 
 #uploaded = files.upload()
 
@@ -15,18 +16,31 @@ root = tree.getroot()
 # printet alle Tags in XML Datei, auch mehrfach aufkommende
 # print([elem.tag for elem in root.iter()])
 
+
+pforms = []
 # sucht und printet Präsentationsform
 for pform in root.iter('PRAESENTATIONSFORM'):
-    print(pform.text)
+    #print(pform.text)
+    pforms.append(pform.text)
+    #df['pform'] = pform.text
 
+titels = []
 # sucht und printent Text unter allen TITEL.Tags, also Hauptitel, Sonstiger Titel, Seitentitel
 for titel in root.findall("./INHALT/TITEL/"):
-    print(titel.text)
+    #print(titel.text)
+    titels.append(titel.text)
+    #df['titel'] = titel.text
 
+texts = []
 # sucht und printent Text unter VOLLTEXT.Tags
 for text in root.findall("./INHALT/VOLLTEXT/"):
-    print(text.text)
+    #print(text.text)
+    texts.append(text.text)
+    #df['text'] = text.text
 
+print(pforms)
+print(titels)
+print(texts)
 
 """
 # root[2] = Inhalt
