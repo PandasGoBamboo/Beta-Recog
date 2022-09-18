@@ -19,9 +19,13 @@ root = tree.getroot()
 for pform in root.iter('PRAESENTATIONSFORM'):
     print(pform.text)
 
-# sucht und printent Text unter alle TITEL.Tags, also Hauptitel, Sonstiger Titel, Seitentitel
+# sucht und printent Text unter allen TITEL.Tags, also Hauptitel, Sonstiger Titel, Seitentitel
 for titel in root.findall("./INHALT/TITEL/"):
     print(titel.text)
+
+# sucht und printent Text unter VOLLTEXT.Tags
+for text in root.findall("./INHALT/VOLLTEXT/"):
+    print(text.text)
 
 
 """
