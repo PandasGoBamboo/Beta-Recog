@@ -6,9 +6,23 @@ tree = ET.parse('test.xml')
 root = tree.getroot()
 
 # returns QUEID 'Metadaten' - 'Quelle' - 'QueID'
-#print(root[1][10][0])
+# print(root[1][10][0])
 
-print(root[2].tag)
+# print(root[2].tag)
+
+# print(root.findall('PRAESENTATIONSFORM'))
+
+# printet alle Tags in XML Datei, auch mehrfach aufkommende
+# print([elem.tag for elem in root.iter()])
+
+# sucht und printet Präsentationsform
+for pform in root.iter('PRAESENTATIONSFORM'):
+    print(pform.text)
+
+# sucht und printent Text unter alle TITEL.Tags, also Hauptitel, Sonstiger Titel, Seitentitel
+for titel in root.findall("./INHALT/TITEL/"):
+    print(titel.text)
+
 
 """
 # root[2] = Inhalt
@@ -19,5 +33,5 @@ for elem in root[2]:
       if subelem.text != None:
         print('----')
         print(subelem.text)
-      
+
 """
