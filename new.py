@@ -8,9 +8,16 @@ root = tree.getroot()
 # returns QUEID 'Metadaten' - 'Quelle' - 'QueID'
 #print(root[1][10][0])
 
+print(root[2].tag)
+
+"""
+# root[2] = Inhalt
 for elem in root[2]:
   #if elem.text != None:
-    print(elem.text)
+    print(elem.tag)
     for subelem in elem:
       if subelem.text != None:
+        print('----')
         print(subelem.text)
+      
+"""
