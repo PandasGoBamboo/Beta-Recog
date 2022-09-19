@@ -1,8 +1,6 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
 
-#uploaded = files.upload()
-
 tree = ET.parse('./files/test.xml')
 root = tree.getroot()
 
