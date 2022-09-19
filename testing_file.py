@@ -3,7 +3,9 @@ import pandas as pd
 import os
 
 
-directory = 'files'
+#directory = 'files'
+directory = '2021'
+
 
 pforms = []
 haupt_titels = []
@@ -13,12 +15,12 @@ texts = []
 
 
 # sucht alle files in allen subfoldern und speichert sie in Dataframe
-for root, subdirectories, files in os.walk(directory):
+for roots, subdirectories, files in os.walk(directory):
     for filename in files:
-        file = os.path.join(root, filename)
+        file = os.path.join(roots, filename)
         tree = ET.parse(file)
         root = tree.getroot()
-        print(root[2].tag)
+        #print(root[2].tag)
         for pform in root.iter('PRAESENTATIONSFORM'):
             pforms.append(pform.text)
         for haupt_titel in root.findall("./INHALT/TITEL/HAUPTTITEL"):
@@ -30,6 +32,7 @@ for root, subdirectories, files in os.walk(directory):
         for text in root.findall("./INHALT/VOLLTEXT/TEXT"):
             texts.append(text.text)
 
+"""
 train_data = pd.DataFrame(
     {'pform': pforms,
      'haupt_titel': haupt_titels,
@@ -38,8 +41,15 @@ train_data = pd.DataFrame(
      'volltext': texts,
     })
 
+"""
+print(len(haupt_titels)) # 1749
+print(len(sonst_titels)) # 1426
+print(len(seiten_titels)) # 1253
+print(len(texts)) # 1749
+print(len(pforms)) # 1875
 
-print(train_data.head)
+
+#print(train_data.head)
 # print(pforms)
 # print(haupt_titels)
 # print(sonst_titels)

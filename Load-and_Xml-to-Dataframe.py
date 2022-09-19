@@ -3,7 +3,8 @@ import pandas as pd
 import os
 
 
-directory = 'files'
+#directory = 'files'
+directory = '2021'
 
 # Erzeugt Listen, die später gefüllt werden
 pforms = []
@@ -40,4 +41,4 @@ train_data = pd.DataFrame(
     })
 
 
-print(train_data.head)
+print(train_data.info)
