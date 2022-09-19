@@ -3,7 +3,7 @@ import pandas as pd
 
 #uploaded = files.upload()
 
-tree = ET.parse('test.xml')
+tree = ET.parse('./files/test.xml')
 root = tree.getroot()
 
 # returns QUEID 'Metadaten' - 'Quelle' - 'QueID'
@@ -49,13 +49,14 @@ train_data = pd.DataFrame(
      'seiten_titel': seiten_titels,
      'volltext': texts,
     })
-print(train_data.head)
 
-#print(pforms)
-#print(haupt_titels)
-#print(sonst_titels)
-#print(seiten_titels)
-#print(texts)
+
+print(train_data.head)
+# print(pforms)
+# print(haupt_titels)
+# print(sonst_titels)
+# print(seiten_titels)
+# print(texts)
 
 """
 # root[2] = Inhalt
