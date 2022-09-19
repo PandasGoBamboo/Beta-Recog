@@ -1,15 +1,13 @@
-import os
+import os, glob
 import xml.etree.ElementTree as ET
 
-directory = './files/'
+directory = 'files'
 
 
-
-# print(root[2].tag)
-
-# sucht und findet files in allen ordnern unter angegebenen
-for filename in os.listdir(directory):
-    tree = ET.parse(filename)
-    root = tree.getroot()
-    print(root[2].tag)
-    #print(os.path.join(root, filename))
+# sucht alle files in allen subfoldern, öffnet xml und printet
+for root, subdirectories, files in os.walk(directory):
+    for filename in files:
+        file = os.path.join(root, filename)
+        tree = ET.parse(file)
+        root = tree.getroot()
+        print(root[2].tag)
