@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
 import os
+from collections import Counter
 
 
 #directory = 'files'
@@ -23,6 +24,7 @@ for roots, subdirectories, files in os.walk(directory):
         #print(root[2].tag)
         for pform in root.iter('PRAESENTATIONSFORM'):
             pforms.append(pform.text)
+        """
         for haupt_titel in root.findall("./INHALT/TITEL/HAUPTTITEL"):
             haupt_titels.append(haupt_titel.text)
         for sonst_titel in root.findall("./INHALT/TITEL/SONSTIGER_TITEL"):
@@ -31,6 +33,8 @@ for roots, subdirectories, files in os.walk(directory):
             seiten_titels.append(seiten_titel.text)
         for text in root.findall("./INHALT/VOLLTEXT/TEXT"):
             texts.append(text.text)
+        """
+
 
 """
 train_data = pd.DataFrame(
@@ -42,19 +46,39 @@ train_data = pd.DataFrame(
     })
 
 """
+
+keys = Counter(pforms).keys() # equals to list(set(words))
+values = Counter(pforms).values() # counts the elements' frequency
+
+liste = pd.DataFrame(
+    {
+        'Pform': keys,
+        'Anzahl': values
+    }
+)
+
+print(liste)
+
+
+"""
 print(len(haupt_titels)) # 1749
 print(len(sonst_titels)) # 1426
 print(len(seiten_titels)) # 1253
 print(len(texts)) # 1749
 print(len(pforms)) # 1875
 
+"""
 
-#print(train_data.head)
-# print(pforms)
-# print(haupt_titels)
-# print(sonst_titels)
-# print(seiten_titels)
-# print(texts)
+
+"""
+print(train_data.head)
+print(pforms)
+print(haupt_titels)
+print(sonst_titels)
+print(seiten_titels)
+print(texts)
+
+"""
 
 """
 # root[2] = Inhalt
