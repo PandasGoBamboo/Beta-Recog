@@ -22,21 +22,25 @@ In den nächsten Schritten müssen die Daten oder die Fehler bereinigt werden. F
 Ich checke nun, welche unique Values die Präsentationsformen besitzen. In meinem Testdatenset sind es folgende:
 
    Pform  Anzahl
-0    ESS      36
-1    BER    1413
-2    KOM      56
-3    REP       8
-4    REZ      58
-5    TIT      22
-6    INT     145
-7    SER      21
-8    GRF      81
-9    LES       5
-10   CHR       2
-11   KTE       8
-12   PRM       6
-13   OFB       1
-14   SDK       4
-15   ANA       1
-16   WRT       7
-17   LEX       1
+## 0    ESS (Essay)                                36
+1    BER (Bericht)                              1413
+# 2    KOM (Kommentar)                            56
+## 3    REP (Reportage)                            8
+## 4    REZ (Rezension)                            58
+5    TIT (Titelgeschichte)                      22
+# 6    INT (Interview)                            145
+7    SER (Serie)                                21
+# 8    GRF (Grafik?)                              81
+9    LES (Leserbrief)                           5
+## 10   CHR (Chronologie)                          2
+11   KTE (Karte)                                8
+12   PRM (Pressemitteilung)                     6
+13   OFB (Offener Brief)                        1
+14   SDK (Sonderdokument)                       4
+15   ANA (Analysis nur für DW)                  1
+16   WRT (Wortlaut)                             7
+17   LEX (Lexikalisches Begriffserklärung)      1
+
+Es fehlt noch 
+# Nachruf
+# Porträt/Portrait
