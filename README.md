@@ -44,3 +44,62 @@ Ich checke nun, welche unique Values die Präsentationsformen besitzen. In meine
 Es fehlt noch 
 # Nachruf
 # Porträt/Portrait
+
+
+# 2021
+
+0    BER  156437
+1    KOM    5337
+2    ESS    1343
+3    SDK      33
+4    TIT     916
+5    INT   12430
+6    KTE     654
+7    GRF    5726
+8    ANA     105
+9    REZ    8041
+10   REP     696
+11   WRT     168
+12   LES     237
+13   LEX      21
+14   SER    1287
+15   PRM     830
+16   CHR     164
+17   OFB      24
+18   SAT      66
+19   GEG       9
+20   FRG      79
+21   KOR      15
+22   ANZ       1
+23   PRS       1
+24   VON       2
+
+# 2019
+
+0    BER  135064
+1    ESS    1468
+2    INT   14373
+3    KOM    6980
+4    ANA     110
+5    SDK      24
+6    TIT    1394
+7    GRF    6278
+8    REZ   11627
+9    KTE     648
+10   PRM     896
+11   FRG      90
+12   SER    1383
+13   CHR     263
+14   LES      57
+15   WRT     394
+16   LEX      25
+17   REP     779
+18   KOR      18
+19   SAT      30
+20   OFB      22
+21   GEG       8
+22   ANZ       3
+23   VON       1
+24   PER       4
+
+#2018
