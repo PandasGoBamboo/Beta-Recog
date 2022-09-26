@@ -49,3 +49,13 @@ Es fehlt noch
 Neuer Herausforderung: 
 
 Not well formed XML ignorieren oder finden und ausbessern.
+
+# 26.09.2022
+
+Trainingsdauer muss auch gemessen werden für POC.
+
+Problem von gester gefixed. Korrupte Files werden einfach ignoriert.
+
+Es gibt für jeden Haupttitel auch einen Text, aber manchmal mehr als eine Pform
+Es gibt nicht für jedes File einen Seitentitel oder Sonstigen Titel
+Der Klassifier müsste manche Feature nur dann verwenden, wenn sie auch da sind. Fehlt ein Feature ignoriert er sie.
