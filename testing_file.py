@@ -2,10 +2,10 @@ import xml.etree.ElementTree as ET
 import pandas as pd
 import os
 from collections import Counter
+from lxml import etree
 
-
-#directory = 'files'
-directory = '2021'
+directory = 'files'
+directory = 'C:/Users/tschu/Desktop/Daten neu/xx/2016'
 
 
 pforms = []
@@ -14,16 +14,21 @@ sonst_titels = []
 seiten_titels = []
 texts = []
 
-
+print('ich roedel......')
 # sucht alle files in allen subfoldern und speichert sie in Dataframe
 for roots, subdirectories, files in os.walk(directory):
     for filename in files:
-        file = os.path.join(roots, filename)
-        tree = ET.parse(file)
-        root = tree.getroot()
-        #print(root[2].tag)
-        for pform in root.iter('PRAESENTATIONSFORM'):
-            pforms.append(pform.text)
+        try:
+            parser1 = ET.XMLParser(encoding='utf-8')
+            file = os.path.join(roots, filename)
+            tree = ET.parse(file, parser=parser1)
+            root = tree.getroot()
+            #print(root[2].tag)
+            for pform in root.iter('PRAESENTATIONSFORM'):
+                pforms.append(pform.text)
+        except ET.ParseError:
+            print('{} is corrupt'.format(file))
+
         """
         for haupt_titel in root.findall("./INHALT/TITEL/HAUPTTITEL"):
             haupt_titels.append(haupt_titel.text)
@@ -47,6 +52,7 @@ train_data = pd.DataFrame(
 
 """
 
+# Zählt unique Keys und speichert sie mit Bezeichnung in Liste
 keys = Counter(pforms).keys() # equals to list(set(words))
 values = Counter(pforms).values() # counts the elements' frequency
 
@@ -58,7 +64,10 @@ liste = pd.DataFrame(
 )
 
 print(liste)
+# Liste als CSV
+#liste.to_csv('2018.csv') 
 
+print('ich habe fertig')
 
 """
 print(len(haupt_titels)) # 1749
