@@ -5,16 +5,17 @@ from collections import Counter
 from lxml import etree
 
 # Datenablageort
-directory = 'C:/Users/tschu/Desktop/Daten neu/xx/2016'
+directory = 'C:/Users/tschu/Desktop/BETA-RECOG/2021'
 
 
 pforms = []
 haupt_titels = []
-sonst_titels = []
-seiten_titels = []
 texts = []
 
 print('ich roedel......')
+
+# [item[0] for item in lst]
+
 
 # Sucht alle Files in allen Subfoldern und speichert sie in Liste
 for roots, subdirectories, files in os.walk(directory):
@@ -35,6 +36,12 @@ for roots, subdirectories, files in os.walk(directory):
             print('{} is corrupt'.format(file))
 
 # erstellt Dataframe aus Liste
+
+
+print(len(pforms))
+print(len(haupt_titels))
+print(len(texts))
+
 """
 train_data = pd.DataFrame(
     {'pform': pforms,
@@ -42,17 +49,24 @@ train_data = pd.DataFrame(
      'volltext': texts,
     })
 
+print(train_data.head)
+
 """
 
 # Zählt unique Keys und speichert sie mit Bezeichnung in Liste
-"""
-keys = Counter(pforms).keys() # equals to list(set(words))
-values = Counter(pforms).values() # counts the elements' frequency
 
+#keys = Counter(pforms).keys() # equals to list(set(words))
+#values = Counter(pforms).values() # counts the elements' frequency
+#keys2 = Counter(haupt_titels).keys()
+#values2 = Counter(haupt_titels).values()
+#keys3 = Counter(texts).keys()
+#alues3 = Counter(texts).values()
+
+
+"""
 liste = pd.DataFrame(
     {
-        'Pform': keys,
-        'Anzahl': values
+        'Titel Anzahl': values2
     }
 )
 

@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 import pandas as pd
 
-tree = ET.parse('./files/test.xml')
+tree = ET.parse('C:/Users/tschu/Desktop/Beta-Recog/files/folder2/test2.xml')
 root = tree.getroot()
 
 # returns QUEID 'Metadaten' - 'Quelle' - 'QueID'
