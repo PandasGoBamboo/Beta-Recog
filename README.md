@@ -59,3 +59,5 @@ Problem von gester gefixed. Korrupte Files werden einfach ignoriert.
 Es gibt für jeden Haupttitel auch einen Text, aber manchmal mehr als eine Pform
 Es gibt nicht für jedes File einen Seitentitel oder Sonstigen Titel
 Der Klassifier müsste manche Feature nur dann verwenden, wenn sie auch da sind. Fehlt ein Feature ignoriert er sie.
+
+Umgang mit mehr als einer Pform: Wenn mehr als eine vorhanden, nimm nur erste fürs Trainings. Damit sollte kein Fehler mehr auftauchen.
