@@ -64,8 +64,11 @@ Umgang mit mehr als einer Pform: Wenn mehr als eine vorhanden, nimm nur erste f�
 
 Immer nur ein Ding aus Präsentationsform liste nehmen oder wenn mehr als eine vergeben, dann text und titel von der pform kopieren und ebenfalls fürs Training benutzen.
 
+# 27.09.2022
 Problem gelöst indem wir zusätzlich in der for-Schleife einen index angeben, nachdem ich dann filtern kann. ALso nur den ersten nehmen z.B.
 
 findall vs iter
 findall findet nur Element mit dem Tag, die direkte Kinder vom ausgewählten element sind
 iter geht auch weiter als iter
+
+checke ob datei x,y,z hat und nur dann mitnehmen. Nicht einzeln voneinander checken
