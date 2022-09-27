@@ -5,7 +5,7 @@ from collections import Counter
 from lxml import etree
 
 # Datenablageort
-directory = 'C:/Users/tschu/Desktop/BETA-RECOG/2021'
+directory = 'C:/Users/tschu/Desktop/BETA-RECOG/newtest'
 
 
 pforms = []
@@ -26,8 +26,10 @@ for roots, subdirectories, files in os.walk(directory):
             file = os.path.join(roots, filename)
             tree = ET.parse(file, parser=parser1)
             root = tree.getroot()
-            for pform in root.iter('PRAESENTATIONSFORM'):
-                pforms.append(pform.text)
+            # liefert nur das Element an angegebener Indexposition zurück
+            for index, pform in enumerate(root.iter('PRAESENTATIONSFORM')):
+                if index == 0:
+                    pforms.append(pform.text)
             for haupt_titel in root.findall("./INHALT/TITEL/HAUPTTITEL"):
                 haupt_titels.append(haupt_titel.text)
             for text in root.findall("./INHALT/VOLLTEXT/TEXT"):
@@ -41,6 +43,7 @@ for roots, subdirectories, files in os.walk(directory):
 print(len(pforms))
 print(len(haupt_titels))
 print(len(texts))
+print(pforms)
 
 """
 train_data = pd.DataFrame(
