@@ -72,3 +72,7 @@ findall findet nur Element mit dem Tag, die direkte Kinder vom ausgewählten ele
 iter geht auch weiter als iter
 
 checke ob datei x,y,z hat und nur dann mitnehmen. Nicht einzeln voneinander checken
+
+Late Night Thoughts: 
+
+Immer nur die erste Pform zu nehmen könnte dazu führen, dass sehr wenig Trainingsmaterial übrig bleibt. Stichprobe zeigt, dass z.B. das Tag "GRF" sehr häufig nur als zweite Pform kommt. Vermutlich weil Bestandteil des Artikels, aber nicht nur der Artikel. Dennoch interessant für die Recherche, weil mit Stichwörtern das Thema eingeschränkt werden kann und mit den Pform = Grafik eine Schaubild passend zum Thema gesucht werden kann.
