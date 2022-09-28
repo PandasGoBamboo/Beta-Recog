@@ -15,7 +15,78 @@ texts = []
 print('ich roedel......')
 
 
+for roots, subdirectories, files in os.walk(directory):
+    for filename in files:
+        # fängt korrupte xml-Files ab und ignoriert sie
+        try:
+            parser1 = ET.XMLParser(encoding='utf-8')
+            file = os.path.join(roots, filename)
+            tree = ET.parse(file, parser=parser1)
+            root = tree.getroot()
+            # for data in root.iter('ARTIKEL'):
+            # liefert nur das Element an angegebener Indexposition zurück
+            for pform in root.iter('PRAESENTATIONSFORM'):
+                    pforms.append(pform.text)
+                    for haupt_titel in root.iter('HAUPTTITEL'):
+                        for titel in haupt_titel:
+                            print(titel)
+                        if haupt_titel.text is not None:
+                            haupt_titels.append(haupt_titel.text)
+                        else:
+                            haupt_titels.append('xxxPlatzhalterxxx')
+                    for text in root.iter('TEXT'):
+                        if text.text is not None:
+                            texts.append(text.text)
+                        else:
+                            texts.append('xxxPlatzhalterxxx') 
 
+        except ET.ParseError:
+            print('{} is corrupt'.format(file))
+
+print(len(pforms))
+print(len(haupt_titels))
+print(len(texts))
+
+#print(pforms)
+
+
+train_data = pd.DataFrame(
+    {'pform': pforms,
+     'haupt_titel': haupt_titels,
+     'volltext': texts,
+    })
+
+#print(train_data.head)
+
+train_data.to_csv('testfile.csv', encoding = 'utf-8-sig', index=False, sep=";")
+
+# Zählt unique Keys und speichert sie mit Bezeichnung in Liste
+
+#keys = Counter(pforms).keys() # equals to list(set(words))
+#values = Counter(pforms).values() # counts the elements' frequency
+#keys2 = Counter(haupt_titels).keys()
+#values2 = Counter(haupt_titels).values()
+#keys3 = Counter(texts).keys()
+#alues3 = Counter(texts).values()
+
+
+"""
+liste = pd.DataFrame(
+    {
+        'Titel Anzahl': values2
+    }
+)
+
+print(liste)
+# Liste als CSV
+#liste.to_csv('2018.csv') 
+
+"""
+
+print('ich habe fertig')
+
+
+"""
 for roots, subdirectories, files in os.walk(directory):
     for filename in files:
         # fängt korrupte xml-Files ab und ignoriert sie
@@ -36,3 +107,5 @@ for roots, subdirectories, files in os.walk(directory):
                 print('{} is out of Range'.format(file))
         except ET.ParseError:
             print('{} is corrupt'.format(file))
+
+"""
