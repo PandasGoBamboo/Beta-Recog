@@ -15,6 +15,7 @@ texts = []
 
 print('ich roedel......')
 
+pform_vars = ['KOM', 'INT', 'GRF', 'REP', 'REZ', 'ESS', 'CHR']
 
 for roots, subdirectories, files in os.walk(directory):
     for filename in files:
@@ -24,14 +25,7 @@ for roots, subdirectories, files in os.walk(directory):
             file = os.path.join(roots, filename)
             tree = ET.parse(file, parser=parser1)
             root = tree.getroot()
-            # for data in root.iter('ARTIKEL'):
-            # liefert nur das Element an angegebener Indexposition zurück
 
-            # !!!!vorher ein Check machen, ob Tags existent sind!!!!
-            # testen was passiert wenn Tag fehlt mit
-
-            # geh in jedes File. Schau, ob es ein Element pform gibt? 
-            # hier findet er schon das nicht
             pformfind = root.findall('.//PRAESENTATIONSFORM')
             titelfind = root.findall('.//HAUPTTITEL')
             textfind = root.findall('.//TEXT')
@@ -40,27 +34,21 @@ for roots, subdirectories, files in os.walk(directory):
                 continue
             else:
                 for pform in root.iter('PRAESENTATIONSFORM'):
-                    pforms.append(pform.text)
+                    if (pform.text in pform_vars):
+                        pforms.append(pform.text)
                         # gibts das feld überhaupt, wenn nicht Platzhalter, wenn doch to das
-                    for haupt_titel in root.iter('HAUPTTITEL'):
-                        if haupt_titel.text is not None:
-                                haupt_titels.append(haupt_titel.text)
-                        else:
-                            haupt_titels.append('xxxPlatzhalterxxx')
-                    for text in root.iter('TEXT'):
-                        if text.text is not None:
-                            texts.append(text.text)
-                        else:
-                            texts.append('xxxPlatzhalterxxx') 
+                        for haupt_titel in root.iter('HAUPTTITEL'):
+                            if haupt_titel.text is not None:
+                                    haupt_titels.append(haupt_titel.text)
+                            else:
+                                haupt_titels.append('xxxPlatzhalterxxx')
+                        for text in root.iter('TEXT'):
+                            if text.text is not None:
+                                texts.append(text.text)
+                            else:
+                                texts.append('xxxPlatzhalterxxx') 
         except ET.ParseError:
             print('{} is corrupt'.format(file))
-
-print(len(pforms))
-print(len(haupt_titels))
-print(len(texts))
-
-
-
 
 train_data = pd.DataFrame(
         {'pform': pforms,
@@ -68,11 +56,13 @@ train_data = pd.DataFrame(
         'volltext': texts,
     })
 
-print('{} is sdfsdf'.format(file))
+print(len(pforms))
+print(len(haupt_titels))
+
 
 print(train_data.head)
 
-#train_data.to_csv('testfile.csv', encoding = 'utf-8-sig', index=False, sep=";")
+train_data.to_pickle('testfile.pkl')
 
 
 # Zählt unique Keys und speichert sie mit Bezeichnung in Liste
