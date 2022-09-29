@@ -76,3 +76,11 @@ checke ob datei x,y,z hat und nur dann mitnehmen. Nicht einzeln voneinander chec
 Late Night Thoughts: 
 
 Immer nur die erste Pform zu nehmen könnte dazu führen, dass sehr wenig Trainingsmaterial übrig bleibt. Stichprobe zeigt, dass z.B. das Tag "GRF" sehr häufig nur als zweite Pform kommt. Vermutlich weil Bestandteil des Artikels, aber nicht nur der Artikel. Dennoch interessant für die Recherche, weil mit Stichwörtern das Thema eingeschränkt werden kann und mit den Pform = Grafik eine Schaubild passend zum Thema gesucht werden kann.
+
+# 28.09.2022
+
+Heute läuft irgendwie gar nix. Mehrmals rumprobiert aber ich konnte das Problem nach wie vor nicht lösen. Im Netz wird immer nur vorgeschlagen, dass man die korrputen Files bearbeitet, mir ist bei einem Testlauf aber aufgefallen, dass immer die letzte Datei als korrupt angezeigt wird.
+
+# 29.09.2022
+
+Endlich das Problem gefixt. Nun werden Dateien ignoriert, die entweder keine pform, kein Titel oder Text beinhalten.
