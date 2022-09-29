@@ -1,3 +1,4 @@
+from cgitb import text
 import xml.etree.ElementTree as ET
 import pandas as pd
 import os
@@ -25,13 +26,25 @@ for roots, subdirectories, files in os.walk(directory):
             root = tree.getroot()
             # for data in root.iter('ARTIKEL'):
             # liefert nur das Element an angegebener Indexposition zurück
-            for pform in root.iter('PRAESENTATIONSFORM'):
+
+            # !!!!vorher ein Check machen, ob Tags existent sind!!!!
+            # testen was passiert wenn Tag fehlt mit
+
+            # geh in jedes File. Schau, ob es ein Element pform gibt? 
+            # hier findet er schon das nicht
+            pformfind = root.findall('.//PRAESENTATIONSFORM')
+            titelfind = root.findall('.//HAUPTTITEL')
+            textfind = root.findall('.//TEXT')
+
+            if not pformfind or not titelfind or not textfind:
+                continue
+            else:
+                for pform in root.iter('PRAESENTATIONSFORM'):
                     pforms.append(pform.text)
+                        # gibts das feld überhaupt, wenn nicht Platzhalter, wenn doch to das
                     for haupt_titel in root.iter('HAUPTTITEL'):
-                        for titel in haupt_titel:
-                            print(titel)
                         if haupt_titel.text is not None:
-                            haupt_titels.append(haupt_titel.text)
+                                haupt_titels.append(haupt_titel.text)
                         else:
                             haupt_titels.append('xxxPlatzhalterxxx')
                     for text in root.iter('TEXT'):
@@ -39,7 +52,6 @@ for roots, subdirectories, files in os.walk(directory):
                             texts.append(text.text)
                         else:
                             texts.append('xxxPlatzhalterxxx') 
-
         except ET.ParseError:
             print('{} is corrupt'.format(file))
 
@@ -47,27 +59,30 @@ print(len(pforms))
 print(len(haupt_titels))
 print(len(texts))
 
-#print(pforms)
+
 
 
 train_data = pd.DataFrame(
-    {'pform': pforms,
-     'haupt_titel': haupt_titels,
-     'volltext': texts,
+        {'pform': pforms,
+        'haupt_titel': haupt_titels,
+        'volltext': texts,
     })
 
-#print(train_data.head)
+print('{} is sdfsdf'.format(file))
 
-train_data.to_csv('testfile.csv', encoding = 'utf-8-sig', index=False, sep=";")
+print(train_data.head)
+
+#train_data.to_csv('testfile.csv', encoding = 'utf-8-sig', index=False, sep=";")
+
 
 # Zählt unique Keys und speichert sie mit Bezeichnung in Liste
 
-#keys = Counter(pforms).keys() # equals to list(set(words))
-#values = Counter(pforms).values() # counts the elements' frequency
-#keys2 = Counter(haupt_titels).keys()
-#values2 = Counter(haupt_titels).values()
-#keys3 = Counter(texts).keys()
-#alues3 = Counter(texts).values()
+# keys = Counter(pforms).keys() # equals to list(set(words))
+# values = Counter(pforms).values() # counts the elements' frequency
+# keys2 = Counter(haupt_titels).keys()
+# values2 = Counter(haupt_titels).values()
+# keys3 = Counter(texts).keys()
+# alues3 = Counter(texts).values()
 
 
 """
@@ -79,7 +94,7 @@ liste = pd.DataFrame(
 
 print(liste)
 # Liste als CSV
-#liste.to_csv('2018.csv') 
+# liste.to_csv('2018.csv') 
 
 """
 
