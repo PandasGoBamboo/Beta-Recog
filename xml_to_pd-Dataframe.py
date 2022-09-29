@@ -1,69 +1,82 @@
+from multiprocessing.sharedctypes import Value
 import xml.etree.ElementTree as ET
 import pandas as pd
+import os
+from collections import Counter
+from lxml import etree
+from datetime import datetime
 
-tree = ET.parse('C:/Users/tschu/Desktop/Beta-Recog/files/folder2/test2.xml')
-root = tree.getroot()
+# Counter für Dauer von Skriptausführung
+startTime = datetime.now()
 
-# returns QUEID 'Metadaten' - 'Quelle' - 'QueID'
-# print(root[1][10][0])
+# Konsolenoutput
+print('ich roedel in ' + directory + ' ....')
 
-# print(root[2].tag)
+# Dateipfad
+directory = 'C:/Users/tschu/Desktop/Daten neu/xx'
 
-# print(root.findall('PRAESENTATIONSFORM'))
-
-# printet alle Tags in XML Datei, auch mehrfach aufkommende
-# print([elem.tag for elem in root.iter()])
-
-
+# Erstelle Listen zum Befüllen
 pforms = []
-# sucht Präsentationsform und fügt sie zur Liste hinzu
-for pform in root.iter('PRAESENTATIONSFORM'):
-    pforms.append(pform.text)
-
 haupt_titels = []
-# sucht Haupttitel und fügt sie ihn Liste hinzu
-for haupt_titel in root.findall("./INHALT/TITEL/HAUPTTITEL"):
-    haupt_titels.append(haupt_titel.text)
-
-sonst_titels = []
-# sucht sonstige Titel und fügt ihn zur Liste hinzu
-for sonst_titel in root.findall("./INHALT/TITEL/SONSTIGER_TITEL"):
-    sonst_titels.append(sonst_titel.text)
-
-seiten_titels = []
-# sucht Seitentitel und fügt ihn zur Liste hinzu
-for seiten_titel in root.findall("./INHALT/TITEL/SEITENTITEL"):
-    seiten_titels.append(seiten_titel.text)
-
 texts = []
-# such Volltext-Text und fügt ihn zur Liste hinzu
-for text in root.findall("./INHALT/VOLLTEXT/TEXT"):
-    texts.append(text.text)
+# weiteres Feature = []
 
+# relevante Präsentationsformen
+pform_vars = ['KOM', 'INT', 'GRF', 'REP', 'REZ', 'ESS', 'CHR'] # weitere Pformen hinzufügen
+
+# iteriert durch alle Ordner und Subordner in angegebenen Dateipfad
+for roots, subdirectories, files in os.walk(directory):
+    for filename in files:
+        try:
+            # initiert Parser für xml.Dateien
+            parser1 = ET.XMLParser(encoding='utf-8')
+            file = os.path.join(roots, filename)
+            tree = ET.parse(file, parser=parser1)
+            root = tree.getroot()
+
+            # checkt, ob alle relevanten xml-Elemente vorhanden sind, wenn eins fehlt, wird Datei geskippt
+            pformfind = root.findall('.//PRAESENTATIONSFORM')
+            titelfind = root.findall('.//HAUPTTITEL')
+            textfind = root.findall('.//TEXT')
+            # Hier weitere zu testende Features hinzufügen  
+        
+            if not pformfind or not titelfind or not textfind: # or not weitere Feature
+                continue
+
+            # fügt den leeren Listen jeweils eine Pform, einen Titel und den Text hinzu, abhängig davon, 
+            # ob eine Pform vorhanden ist. Ist der Titel oder der Text leer, wird ein Platzhalter hinzugefügt.
+            else:
+                for pform in root.iter('PRAESENTATIONSFORM'):
+                    if (pform.text in pform_vars):
+                        pforms.append(pform.text)
+                        for haupt_titel in root.iter('HAUPTTITEL'):
+                            if haupt_titel.text is not None:
+                                    haupt_titels.append(haupt_titel.text)
+                            else:
+                                haupt_titels.append('xxxPlatzhalterxxx')
+                        for text in root.iter('TEXT'):
+                            if text.text is not None:
+                                texts.append(text.text)
+                            else:
+                                texts.append('xxxPlatzhalterxxx') 
+                        # weitere for-Loops bei weiteren Featuren
+        except ET.ParseError:
+            print('{} is corrupt'.format(file))
+
+# Speichere Listen in Dataframe
 train_data = pd.DataFrame(
-    {'pform': pforms,
-     'haupt_titel': haupt_titels,
-     'sonst_titel': sonst_titels,
-     'seiten_titel': seiten_titels,
-     'volltext': texts,
-    })
+        {'pform': pforms,
+        'haupt_titel': haupt_titels,
+        'volltext': texts,
+        # 'feature': feature_liste
+})
 
+# printet Kopf und Info von Dataframe
+print(train_data.info)
 
-print(train_data.head)
-# print(pforms)
-# print(haupt_titels)
-# print(sonst_titels)
-# print(seiten_titels)
-# print(texts)
+# speichert Dataframe in Pickle-Datei 
+train_data.to_pickle('raw_data.pkl')
 
-"""
-# root[2] = Inhalt
-for elem in root[2]:
-  #if elem.text != None:
-    print(elem.tag)
-    for subelem in elem:
-      if subelem.text != None:
-        print('----')
-        print(subelem.text)
-
-"""
+# Konsolenoutput
+print('ich habe fertig')
+print(datetime.now() - startTime)

@@ -84,3 +84,14 @@ Heute läuft irgendwie gar nix. Mehrmals rumprobiert aber ich konnte das Problem
 # 29.09.2022
 
 Endlich das Problem gefixt. Nun werden Dateien ignoriert, die entweder keine pform, kein Titel oder Text beinhalten.
+Auf alle Daten angewendet kommen am Ende <b>1.472.129</b> Files zum Training infrage.
+Nur mit Pforms aus den Prios 1 und 2: sind es noch <b>354.907</b>
+
+Für jede Klasse bleiben:
+INT    115.759
+REZ    101.473
+GRF     55.767
+KOM     53.888
+REP     13.584
+ESS     12.056
+CHR      2.380
