@@ -10,8 +10,6 @@ print('Ich roedel......')
 startTime = datetime.now()
 data = pd.read_pickle(file)
 
-#print(data.info)
-
-print(data['pform'].value_counts())
+print(data.info)
 
 print(datetime.now() - startTime)
