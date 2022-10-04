@@ -6,13 +6,15 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics import accuracy_score, confusion_matrix, make_scorer, classification_report
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import TfidfTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer
 from sklearn.linear_model import LogisticRegression, SGDClassifier, LogisticRegressionCV
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, Binarizer
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score, cross_val_predict, GridSearchCV
 from nltk.corpus import stopwords
+from sklearn.svm import SVC
 from datetime import datetime
+
 
 
 german_stop_words = frozenset([
@@ -249,6 +251,8 @@ german_stop_words = frozenset([
         "zwischen"
       ])
 
+############################ Datei laden
+
 # Counter für Dauer von Skriptausführung
 startTime = datetime.now()
 
@@ -282,56 +286,41 @@ print('X und Y geladen')
 kf = KFold(n_splits=10, shuffle=True, random_state=42)
 
 ##### GridSearchCV biete Möglichkeit verschiedene Parameter zu testen
-
 # Vektorisierungsmethode 
-#vectorizier = CountVectorizer()
-vectorizier = TfidfVectorizer()
-
-# Scaler
+vectorizier = CountVectorizer()
+tfidf = TfidfTransformer()
+# Klassifikator
+classifier = SVC()
 scaler = StandardScaler()
 
-tfidf = TfidfTransformer()
-
-# Klassifikator
-classifier = LogisticRegression() 
+#     ('vect', vectorizier),
+#     ('scaler', scaler),
 
 pipe = Pipeline([
     ('vect', vectorizier),
-    ('scale', scaler),
-    ('log', classifier)
+    ('tfidf', tfidf),
+    ('scaler', scaler),
+    ('svc', classifier)
     ])
 
 params = {
-    "vect__lowercase": [False],
-    "vect__stop_words": [german_stop_words],
-    "scale__with_mean": [False],
-    "log__max_iter": [10000],
-    "log__solver": ['sag'], #, 'lbfgs', 'saga'
-    "log__C": [1], #0.001, 0.01, 0.1, 
-    "log__multi_class": ['multinomial'] #'auto', 
+    #"vect__lowercase": [False],
+    #"vect__stop_words": [german_stop_words],
+    "scaler__with_mean": [False],
+    'svc__C': [0.1, 1, 10],
+    'svc__kernel': ['rbf']
     }
 
-  #"log__solver": ['liblinear'],
-    #"log__multi_class": ['multinomial']
-    # 'liblinear', 'newton-cg', 'lbfgs', 'saga', 
+
+print('Ich fitte jetzt')
 clf = GridSearchCV(pipe, param_grid = params, cv = kf )
-
-print('jetzt wird gefittet')
-
-
 clf.fit(X, y)
-
-print('jetzt wird predicted')
-
-y_pred = cross_val_predict(clf, X, y)
-
-print('Report für: ')
-
-print(' ')
-
-print(classification_report(y, y_pred))
-
 print(clf.best_params_)
 
-print(datetime.now() - startTime)
+print('Ich predicte jetzt')
+y_pred = cross_val_predict(clf, X, y)
+print('Report für: ' + 'stripped')
+print(' ')
+print(classification_report(y, y_pred))
+
 

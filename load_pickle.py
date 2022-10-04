@@ -1,5 +1,7 @@
 import pandas as pd
 from datetime import datetime
+from collections import Counter
+
 
 
 # Datenablageort
@@ -10,6 +12,12 @@ print('Ich roedel......')
 startTime = datetime.now()
 data = pd.read_pickle(file)
 
-print(data.info)
+keys = Counter(data['pform']).keys()
+values = Counter(data['pform']).values()
 
+d = pd.DataFrame({'Pform': keys,
+'Anzahl': values}
+)
+print(keys)
+print(values)
 print(datetime.now() - startTime)

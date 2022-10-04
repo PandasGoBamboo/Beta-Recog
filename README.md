@@ -95,3 +95,71 @@ KOM     53.888
 REP     13.584
 ESS     12.056
 CHR      2.380
+
+Subsample-Größe
+INT    32769
+REZ    28492
+GRF    15862
+KOM    15117
+REP     3771
+ESS     3324
+CHR      665
+
+
+morgen hier lesen:
+ https://scikit-learn.org/stable/modules/preprocessing.html
+ C:\Users\tschu\anaconda3\lib\site-packages\sklearn\linear_model\_logistic.py:762: ConvergenceWarning: lbfgs failed to converge (status=1):
+STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+Please also refer to the documentation for alternative solver options:
+    https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+  n_iter_i = _check_optimize_result(
+
+
+# 01.10.2022
+
+0:50:46.855603
+
+Zeit die es braucht um XML in Dataframe umzuwandeln, und anschließend 
+
+Tokenized
+1:31:13.544934
+
+# 03.10.2022
+https://www.section.io/engineering-education/classification-model-using-bert-and-tensorflow/
+
+              precision    recall  f1-score   support
+
+         CHR       0.01      0.07      0.02        60
+         ESS       0.11      0.26      0.16       337
+         GRF       0.48      0.59      0.53      1619
+         INT       0.72      0.67      0.69      3281
+         KOM       0.56      0.33      0.42      1513
+         REP       0.16      0.42      0.23       359
+         REZ       0.79      0.58      0.67      2831
+
+    accuracy                           0.55     10000
+   macro avg       0.41      0.42      0.39     10000
+weighted avg       0.63      0.55      0.58     10000
+
+Ergebnisse aus der SGD
+
+Ich muss vielleicht ein Modell für jede Klasse morgen ausprobieren. Dat wird doch sonst nix hier.
+
+              precision    recall  f1-score   support
+
+         CHR       0.00      0.00      0.00        60
+         ESS       0.60      0.01      0.02       337
+         GRF       0.74      0.74      0.74      1619
+         INT       0.60      0.95      0.74      3281
+         KOM       0.70      0.17      0.27      1513
+         REP       1.00      0.01      0.01       359
+         REZ       0.89      0.89      0.89      2831
+
+    accuracy                           0.71     10000
+   macro avg       0.65      0.39      0.38     10000
+weighted avg       0.73      0.71      0.66     10000
+
+Ergebnisse mit Naivem Bayes

@@ -93,16 +93,22 @@ data = pd.read_pickle('raw_data.pkl')
 
 # Ausführung des Codes für jeden Namen in der Liste
 text = data['volltext']
+titel = data['haupt_titel']
 
 # Tokenisierung 
 transformed_text = tokenizeText(text)
+transformed_titel = tokenizeText(titel)
 
  # Fügt Dataframe Spalten hinzu
-data['stripped'] = transformed_text[0]
-data['stemmed'] = transformed_text[1]
+data['stripped_titel'] = transformed_titel[0]
+data['stemmed_titel'] = transformed_titel[1]
+data['stripped_text'] = transformed_text[0]
+data['stemmed_text'] = transformed_text[1]
 
+data.to_pickle('stemmed_raw_data.pkl')
 print('Tokenized')
 
+"""
 
 ############################ POS-Tagging
 
@@ -120,5 +126,6 @@ lemmatized = lemmatizeText(pos)
 data['lemma'] = lemmatized
 
 data.to_pickle('prepro_raw_data.pkl')
+"""
 
 print(datetime.now() - startTime)
