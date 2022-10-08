@@ -284,8 +284,8 @@ kf = KFold(n_splits=10, shuffle=True, random_state=42)
 ##### GridSearchCV biete Möglichkeit verschiedene Parameter zu testen
 
 # Vektorisierungsmethode 
-#vectorizier = CountVectorizer()
-vectorizier = TfidfVectorizer()
+vectorizier = CountVectorizer()
+#vectorizier = TfidfVectorizer()
 
 # Scaler
 scaler = StandardScaler()
@@ -297,23 +297,21 @@ classifier = LogisticRegression()
 
 pipe = Pipeline([
     ('vect', vectorizier),
+    ('tfidf', tfidf ),
     ('scale', scaler),
     ('log', classifier)
     ])
 
 params = {
-    "vect__lowercase": [False],
+    #"vect__lowercase": [False],
     "vect__stop_words": [german_stop_words],
     "scale__with_mean": [False],
-    "log__max_iter": [10000],
-    "log__solver": ['sag'], #, 'lbfgs', 'saga'
-    "log__C": [1], #0.001, 0.01, 0.1, 
-    "log__multi_class": ['multinomial'] #'auto', 
+    "log__max_iter": [3000],
+    "log__solver": ['sag', 'saga'] #, 'lbfgs', 'saga'
+    #"log__C": [1], #0.001, 0.01, 0.1, 
+    #"log__multi_class": ['multinomial'] #'auto', 
     }
 
-  #"log__solver": ['liblinear'],
-    #"log__multi_class": ['multinomial']
-    # 'liblinear', 'newton-cg', 'lbfgs', 'saga', 
 clf = GridSearchCV(pipe, param_grid = params, cv = kf )
 
 print('jetzt wird gefittet')

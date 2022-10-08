@@ -1,4 +1,4 @@
-import json, csv, pandas as pd 
+import pandas as pd 
 import pickle
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -12,8 +12,8 @@ from sklearn.preprocessing import StandardScaler, Binarizer
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score, cross_val_predict, GridSearchCV
 from nltk.corpus import stopwords
-from sklearn.svm import SVC
 from datetime import datetime
+import pickle
 
 
 
@@ -255,6 +255,7 @@ german_stop_words = frozenset([
 
 # Counter für Dauer von Skriptausführung
 startTime = datetime.now()
+print(startTime)
 
 ############################ Datei laden
 
@@ -262,8 +263,13 @@ file = 'C:/Users/tschu/Desktop/BETA-RECOG/stemmed_raw_data.pkl'
 
 print('Ich roedel......')
 
+liste = ['CHR', 'ESS', 'REP', 'REZ']
 data = pd.read_pickle(file)
-all = data.sample(n=10000, random_state=1)
+new = data[~data['pform'].isin(liste)]
+new.reset_index(drop=True, inplace=True)
+
+all = new.sample(n=50000, random_state=1)
+
 
 # Trainingsklassen
 y = all['pform']
@@ -290,27 +296,24 @@ kf = KFold(n_splits=10, shuffle=True, random_state=42)
 vectorizier = CountVectorizer()
 tfidf = TfidfTransformer()
 # Klassifikator
-classifier = SVC()
+classifier = SGDClassifier()
 scaler = StandardScaler()
-
-#     ('vect', vectorizier),
-#     ('scaler', scaler),
 
 pipe = Pipeline([
     ('vect', vectorizier),
     ('tfidf', tfidf),
     ('scaler', scaler),
-    ('svc', classifier)
+    ('sgd', classifier)
     ])
 
 params = {
-    #"vect__lowercase": [False],
-    #"vect__stop_words": [german_stop_words],
+    "vect__lowercase": [False, True],
+    "vect__stop_words": [german_stop_words],
     "scaler__with_mean": [False],
-    'svc__C': [0.1, 1, 10],
-    'svc__kernel': ['rbf']
+    'sgd__loss': ['hinge', 'log'],
+    'sgd__alpha': [0.0001, 0.001, 0.01, 0.1, 1.0],
+    'sgd__max_iter': [5000]
     }
-
 
 print('Ich fitte jetzt')
 clf = GridSearchCV(pipe, param_grid = params, cv = kf )
@@ -323,4 +326,5 @@ print('Report für: ' + 'stripped')
 print(' ')
 print(classification_report(y, y_pred))
 
-
+filename = 'small_model.sav'
+pickle.dump(clf, open(filename, 'wb'))

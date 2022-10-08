@@ -163,3 +163,114 @@ Ich muss vielleicht ein Modell für jede Klasse morgen ausprobieren. Dat wird do
 weighted avg       0.73      0.71      0.66     10000
 
 Ergebnisse mit Naivem Bayes
+
+
+
+             precision    recall  f1-score   support
+
+         CHR       0.00      0.00      0.00        23
+         ESS       0.67      0.01      0.02       183
+         GRF       0.78      0.83      0.81       791
+         INT       0.90      0.92      0.91      1612
+         KOM       0.71      0.78      0.74       756
+         REP       0.82      0.42      0.56       193
+         REZ       0.86      0.95      0.90      1442
+
+    accuracy                           0.84      5000
+   macro avg       0.68      0.56      0.56      5000
+weighted avg       0.83      0.84      0.82      5000
+
+Ergebnisse SVM mit sigmoid
+
+
+
+Ergebnisse sgd Log
+
+scaler__with_mean': False, 'sgd__alpha': 0.1, 'sgd__loss': 'log', 'sgd__max_iter': 5000, 'vect__lowercase': False, 'vect__stop_words'
+
+              precision    recall  f1-score   support
+
+         CHR       0.00      0.00      0.00        60
+         ESS       0.10      0.14      0.12       337
+         GRF       0.56      0.64      0.60      1619
+         INT       0.70      0.79      0.74      3281
+         KOM       0.64      0.37      0.47      1513
+         REP       0.19      0.28      0.22       359
+         REZ       0.80      0.71      0.75      2831
+
+    accuracy                           0.63     10000
+   macro avg       0.43      0.42      0.41     10000
+weighted avg       0.65      0.63      0.64     10000
+
+
+
+ 
+              precision    recall  f1-score   support
+
+         CHR       0.14      0.04      0.06       665
+         ESS       0.24      0.08      0.11      3324
+         GRF       0.76      0.80      0.78     15862
+         INT       0.83      0.91      0.87     32769
+         KOM       0.78      0.68      0.73     15117
+         REP       0.59      0.28      0.38      3771
+         REZ       0.86      0.94      0.90     28492
+
+    accuracy                           0.81    100000
+   macro avg       0.60      0.53      0.55    100000
+weighted avg       0.79      0.81      0.79    100000
+SGD SVM
+
+{'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False, 'vect__stop_words':
+
+
+
+         CHR       0.63      0.65      0.64      2380
+         ESS       0.58      0.62      0.60      2380
+         GRF       0.67      0.68      0.67      2380
+         INT       0.73      0.79      0.76      2380
+         KOM       0.67      0.50      0.57      2380
+         REP       0.68      0.72      0.70      2380
+         REZ       0.80      0.78      0.79      2380
+
+    accuracy                           0.68     16660
+   macro avg       0.68      0.68      0.68     16660
+weighted avg       0.68      0.68      0.68     16660
+
+{'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False, 'vect__stop_words':
+
+
+
+
+               precision    recall  f1-score   support
+
+         GRF       0.73      0.82      0.77      2471
+         INT       0.83      0.92      0.87      5162
+         KOM       0.88      0.56      0.68      2367
+
+    accuracy                           0.81     10000
+   macro avg       0.81      0.77      0.78     10000
+weighted avg       0.82      0.81      0.80     10000
+
+
+'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False, 'vect__stop_words'
+
+
+Modell saven und laden noch machbar machen. Andere Feature ausprobieren.
+
+              precision    recall  f1-score   support
+
+         GRF       0.80      0.83      0.82     12443
+         INT       0.88      0.94      0.90     25601
+         KOM       0.90      0.73      0.81     11956
+
+    accuracy                           0.86     50000
+   macro avg       0.86      0.83      0.84     50000
+weighted avg       0.86      0.86      0.86     50000
+
+
+{'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False, 'vect__stop_words':
+
+
+
+
+'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False
