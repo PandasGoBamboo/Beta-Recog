@@ -3,13 +3,20 @@ import pandas as pd
 import os
 from collections import Counter
 from lxml import etree
+from datetime import datetime
+
+# Counter für Dauer von Skriptausführung
+startTime = datetime.now()
+print(startTime)
 
 # Datenablageort
-directory = 'C:/Users/tschu/Desktop/BETA-RECOG/2021'
+directory = 'C:/Users/tschu/Desktop/Daten neu/xx'
 
 
 pforms = []
 haupt_titels = []
+son_titels = []
+count_w = []
 texts = []
 
 print('ich roedel......')
@@ -22,19 +29,15 @@ for roots, subdirectories, files in os.walk(directory):
             file = os.path.join(roots, filename)
             tree = ET.parse(file, parser=parser1)
             root = tree.getroot()
-            # for data in root.iter('ARTIKEL'):
-            # liefert nur das Element an angegebener Indexposition zurück
+            pform_find = root.findall('.//PRAESENTATIONSFORM')
+            titel_find = root.findall('.//HAUPTTITEL')
+            son_titel_find = root.findall('.//SONSTIGER_TITEL')
+            textfind_find = root.findall('.//TEXT')
+            count_w_find = root.findall('.//ANZAHL_WORTE')
+            # Hier weitere zu testende Features hinzufügen
 
-            # !!!!vorher ein Check machen, ob Tags existent sind!!!!
-            # testen was passiert wenn Tag fehlt mit
 
-            # geh in jedes File. Schau, ob es ein Element pform gibt? 
-            # hier findet er schon das nicht
-            pformfind = root.findall('.//PRAESENTATIONSFORM')
-            titelfind = root.findall('.//HAUPTTITEL')
-            textfind = root.findall('.//TEXT')
-
-            if not pformfind or not titelfind or not textfind:
+            if not pform_find or not titel_find or not son_titel_find or not textfind_find or not count_w_find: # or not weitere Feature
                 continue
             else:
                 for pform in root.iter('PRAESENTATIONSFORM'):
@@ -42,40 +45,47 @@ for roots, subdirectories, files in os.walk(directory):
                         # gibts das feld überhaupt, wenn nicht Platzhalter, wenn doch to das
                     for haupt_titel in root.iter('HAUPTTITEL'):
                         if haupt_titel.text is not None:
-                                haupt_titels.append(haupt_titel.text)
+                            haupt_titels.append(haupt_titel.text)
                         else:
-                            haupt_titels.append('xxxPlatzhalterxxx')
+                            haupt_titels.append('xxxPlatzhalterxxx') 
+                    for son_titel in root.iter('SONSTIGER_TITEL'):
+                        if son_titel.text is not None:
+                            son_titels.append(son_titel.text)
+                        else:
+                            son_titels.append('xxxPlatzhalterxxx')
                     for text in root.iter('TEXT'):
                         if text.text is not None:
                             texts.append(text.text)
                         else:
                             texts.append('xxxPlatzhalterxxx') 
+                    for count in root.iter('ANZAHL_WORTE'):
+                        if count.text.strip() is not None:
+                            count_w.append(count.text.strip())
+                        else:
+                            count_w.append('xxxPlatzhalterxxx')
         except ET.ParseError:
             print('{} is corrupt'.format(file))
 
-print(len(pforms))
-print(len(haupt_titels))
-print(len(texts))
-
-
-
+print('Ich baue den Dataframe')
 
 train_data = pd.DataFrame(
         {'pform': pforms,
         'haupt_titel': haupt_titels,
+        'sonst_titel': son_titels,
         'volltext': texts,
+        'anzahl_w':count_w
     })
 
 print('{} ist irgendwie kaputt'.format(file))
 
 print(train_data.info)
 
-
-
 # Zählt unique Keys und speichert sie mit Bezeichnung in Liste
 
 #keys = Counter(pforms).keys() # equals to list(set(words))
 #values = Counter(pforms).values() # counts the elements' frequency
 
- 
+train_data.to_pickle('more_raw_data.pkl')
+
 print('ich habe fertig')
+print(datetime.now() - startTime)

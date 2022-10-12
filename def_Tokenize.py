@@ -46,7 +46,7 @@ def tokenizeText(text_list):
     for sendung in text_list:
 
         sent_of_sendung = []
-        stem_of_sendung = []
+        #stem_of_sendung = []
 
         # Zerlegt jeden Text in Sätze
         tok_sentences = sent_tokenize(sendung, language='german')
@@ -64,18 +64,18 @@ def tokenizeText(text_list):
             sent_of_sendung.append(" ".join(new_words))
 
             # Stemming
-            stemmed_words = [stemmer.stem(word) for word in new_words]
-            stem_of_sendung.append(" ".join(stemmed_words))
+            #stemmed_words = [stemmer.stem(word) for word in new_words]
+            #stem_of_sendung.append(" ".join(stemmed_words))
             
         # Joined tokensierte Sätze einer Sendung
         stripped.append(" ".join(sent_of_sendung))
 
         # Joined gestemmte Sätze einer Sendung
-        stemmed.append(" ".join(stem_of_sendung))
+        #stemmed.append(" ".join(stem_of_sendung))
    
     return [
-        stripped,
-        stemmed
+        stripped #,
+        #stemmed
     ]
 
 # Counter für Dauer von Skriptausführung
@@ -89,24 +89,32 @@ with open('nltk_german_classifier_data.pkl', 'rb') as f:
     tagger = pickle.load(f)
 
 # Einstellung um alle Dokumente zu mergen
-data = pd.read_pickle('raw_data.pkl')
+data = pd.read_pickle('more_raw_data.pkl')
 
+
+print(data.columns)
 # Ausführung des Codes für jeden Namen in der Liste
 text = data['volltext']
 titel = data['haupt_titel']
+sonst_titel = data['sonst_titel']
+
+
 
 # Tokenisierung 
 transformed_text = tokenizeText(text)
 transformed_titel = tokenizeText(titel)
+transformed_sonst_titel = tokenizeText(sonst_titel)
 
  # Fügt Dataframe Spalten hinzu
 data['stripped_titel'] = transformed_titel[0]
-data['stemmed_titel'] = transformed_titel[1]
+#data['stemmed_titel'] = transformed_titel[1]
+data['stripped_sonst_titel'] = transformed_sonst_titel[0]
 data['stripped_text'] = transformed_text[0]
-data['stemmed_text'] = transformed_text[1]
+#data['stemmed_text'] = transformed_text[1]
 
-data.to_pickle('stemmed_raw_data.pkl')
+data.to_pickle('more_stripped_raw_data.pkl')
 print('Tokenized')
+
 
 """
 

@@ -259,23 +259,37 @@ print(startTime)
 
 ############################ Datei laden
 
-file = 'C:/Users/tschu/Desktop/BETA-RECOG/stemmed_raw_data.pkl'
+file = 'C:/Users/tschu/Desktop/BETA-RECOG/more_stripped_raw_data.pkl'
 
 print('Ich roedel......')
 
-liste = ['CHR', 'ESS', 'REP', 'REZ']
+#liste = ['CHR', 'ESS', 'REP', 'REZ']
+liste = ['KOM', 'INT', 'GRF', 'REP', 'REZ', 'ESS', 'CHR']
 data = pd.read_pickle(file)
-new = data[~data['pform'].isin(liste)]
-new.reset_index(drop=True, inplace=True)
+
+#new = data[~data['pform'].isin(liste)]
+new = data[data['pform'].isin(liste)]
+
+#new.reset_index(drop=True, inplace=True)
 
 all = new.sample(n=50000, random_state=1)
 
 
-# Trainingsklassen
+
+#all['stripped_text'] = all['stripped_text'].str.split().str[:100].str.join(' ')
+all['stripped_text'] = all['stripped_text'].apply(lambda x: ' '.join(x.split(' ')[:300]))
+
+
+texts = all['stripped_text']
+#texts = all['stripped_titel'] + all['stripped_sonst_titel'] + all['stripped_text']
+
+
+# Trainingsklassenaus
 y = all['pform']
 
 # Trainingsspalten
-X = all['stripped_text']
+X = texts
+
 
 print('X und Y geladen')
 
@@ -326,5 +340,6 @@ print('Report für: ' + 'stripped')
 print(' ')
 print(classification_report(y, y_pred))
 
-filename = 'small_model.sav'
+
+filename = 'text300_model.sav'
 pickle.dump(clf, open(filename, 'wb'))

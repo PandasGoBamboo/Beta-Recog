@@ -5,7 +5,7 @@ from collections import Counter
 
 
 # Datenablageort
-file = 'C:/Users/tschu/Desktop/BETA-RECOG/raw_data.pkl'
+file = 'C:/Users/tschu/Desktop/BETA-RECOG/more_raw_data.pkl'
 
 print('Ich roedel......')
 

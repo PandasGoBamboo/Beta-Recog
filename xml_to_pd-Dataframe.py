@@ -8,18 +8,19 @@ from datetime import datetime
 
 # Counter für Dauer von Skriptausführung
 startTime = datetime.now()
+print(startTime)
+# Dateipfad
+directory = 'C:/Users/tschu/Desktop/Daten neu/xx'
 
 # Konsolenoutput
 print('ich roedel in ' + directory + ' ....')
-
-# Dateipfad
-directory = 'C:/Users/tschu/Desktop/Daten neu/xx'
 
 # Erstelle Listen zum Befüllen
 pforms = []
 haupt_titels = []
 texts = []
 # weiteres Feature = []
+#DESKRIPTORENTEXT SEITENTITEL SONSTIGER_TITEL ANZAHL_WORTE
 
 # relevante Präsentationsformen
 pform_vars = ['KOM', 'INT', 'GRF', 'REP', 'REZ', 'ESS', 'CHR'] # weitere Pformen hinzufügen
