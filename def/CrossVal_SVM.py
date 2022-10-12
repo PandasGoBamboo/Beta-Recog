@@ -13,6 +13,8 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score, cross_val_predict, GridSearchCV
 from nltk.corpus import stopwords
 from sklearn.svm import SVC
+from datetime import datetime
+
 
 
 german_stop_words = frozenset([
@@ -251,25 +253,26 @@ german_stop_words = frozenset([
 
 ############################ Datei laden
 
-path = '../zdf_data/cleaned/csv/03_09/'
+# Counter für Dauer von Skriptausführung
+startTime = datetime.now()
 
-all = pd.read_csv(path + '03_09_zdf_dokumentation__transformed_allDocs.csv', encoding='utf-8', sep=';')
-# Datei mit Lemma laden
-lemma_file = pd.read_csv(path + 'lemmatestframe.csv', encoding='utf-8', sep=';')
-lemma = lemma_file['lemma']
-all['lemma'] = lemma
+############################ Datei laden
 
-# Spalte mit Text, die zum Training verwendet wird
-all_prePro = [
-    'stripped',
-    'stemmed',
-    'lemma'
-    ]
+file = 'C:/Users/tschu/Desktop/BETA-RECOG/stemmed_raw_data.pkl'
+
+print('Ich roedel......')
+
+data = pd.read_pickle(file)
+all = data.sample(n=10000, random_state=1)
 
 # Trainingsklassen
-y = all['brand']
+y = all['pform']
+
 # Trainingsspalten
-X = all['stemmed']
+X = all['stripped_text']
+
+print('X und Y geladen')
+
 
 ############################ Cross-Validation mit Vektorisierung, Klassifikation und Parametertuning
 
@@ -305,11 +308,11 @@ params = {
     }
 
 clf = GridSearchCV(pipe, param_grid = params, cv = kf )
-#clf.fit(X, y)
-#print(clf.best_params_)
+clf.fit(X, y)
+print(clf.best_params_)
 
+y_pred = cross_val_predict(clf, X, y)
 print('Report für: ' + 'stripped')
 print(' ')
-y_pred = cross_val_predict(clf, X, y)
 print(classification_report(y, y_pred))
 
