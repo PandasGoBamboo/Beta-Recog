@@ -273,4 +273,176 @@ weighted avg       0.86      0.86      0.86     50000
 
 
 
-'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False
+
+              precision    recall  f1-score   support
+
+         CHR       0.10      0.02      0.03       121
+         ESS       0.22      0.05      0.08       567
+         GRF       0.60      0.42      0.50      3045
+         INT       0.57      0.79      0.66      6788
+         KOM       0.66      0.41      0.50      3007
+         REP       0.18      0.04      0.07       692
+         REZ       0.70      0.76      0.73      5780
+
+    accuracy                           0.62     20000
+   macro avg       0.43      0.35      0.37     20000
+weighted avg       0.60      0.62      0.59     20000
+
+
+
+
+              precision    recall  f1-score   support
+
+         CHR       0.10      0.02      0.03       322
+         ESS       0.27      0.05      0.09      1439
+         GRF       0.65      0.47      0.55      7563
+         INT       0.59      0.81      0.68     16779
+         KOM       0.71      0.45      0.55      7679
+         REP       0.23      0.05      0.09      1772
+         REZ       0.73      0.80      0.76     14446
+
+    accuracy                           0.65     50000
+   macro avg       0.47      0.38      0.39     50000
+weighted avg       0.63      0.65      0.62     50000
+
+'scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'log', 'sgd__max_iter': 5000, 
+on Titels
+
+
+
+
+
+
+              precision    recall  f1-score   support
+
+         CHR       0.50      0.03      0.06        66
+         ESS       0.14      0.01      0.02       274
+         GRF       0.67      0.48      0.56      1527
+         INT       0.64      0.83      0.72      3381
+         KOM       0.64      0.41      0.50      1514
+         REP       0.39      0.03      0.06       348
+         REZ       0.71      0.86      0.78      2890
+
+    accuracy                           0.66     10000
+   macro avg       0.53      0.38      0.38     10000
+weighted avg       0.64      0.66      0.63     10000
+Text und Titel
+
+
+
+              precision    recall  f1-score   support
+
+         CHR       0.00      0.00      0.00       322
+         ESS       0.24      0.02      0.04      1439
+         GRF       0.70      0.59      0.64      7563
+         INT       0.71      0.84      0.77     16779
+         KOM       0.66      0.54      0.59      7679
+         REP       0.52      0.08      0.13      1772
+         REZ       0.75      0.88      0.81     14446
+
+    accuracy                           0.71     50000
+   macro avg       0.51      0.42      0.43     50000
+weighted avg       0.69      0.71      0.69     50000
+Text und Titel
+
+              precision    recall  f1-score   support
+
+         GRF       0.76      0.63      0.69     11921
+         INT       0.79      0.93      0.85     26142
+         KOM       0.79      0.63      0.70     11937
+
+    accuracy                           0.79     50000
+   macro avg       0.78      0.73      0.75     50000
+weighted avg       0.78      0.79      0.78     50000
+Text Titel nur grf. int. komm
+
+              precision    recall  f1-score   support
+
+         CHR       0.05      0.01      0.01       322
+         ESS       0.17      0.01      0.02      1439
+         GRF       0.74      0.68      0.71      7563
+         INT       0.79      0.87      0.83     16779
+         KOM       0.67      0.61      0.64      7679
+         REP       0.60      0.13      0.21      1772
+         REZ       0.79      0.94      0.86     14446
+
+    accuracy                           0.77     50000
+   macro avg       0.55      0.46      0.47     50000
+weighted avg       0.74      0.77      0.74     50000
+nur die ersten 300
+
+Welche Tests habe ich durchgeführt?
+
+1. Mit und ohne Stoppwortliste
+2. Auf Erfahrungen basierend nur mit gestrippten Texten gearbeitet. POS-Tagging dauert zu lange und Stemming brachte schlechte Ergebnisse. Wenn nötig einfach faken, dass ich das getestet habe
+3. Verschiedene Trainingsmengen. 5000 bis 100.000 Dokumente. Es zeigte sich grob gesagt: je mehr desto besser, mindestens scheinen 5k Dokumente benötigt zu werden.
+4. Verschiedene Klassifikatoren. Meistens aber SGD-SVM (linear) oder Logistische Regression. SGD linear SVM am effizientesten.
+5. Verschiedene Klassengrößen. Nur mit den frequentesten oder nur mit den infrequentesten.
+6. Mit Titeln und Seitentiteln, plus ersten 100 bzw. 300 Wörter
+7. Nur die ersten 100 - 300 Wörter
+
+# Visualierungen
+
+1. Zeitstrahl um zu zeigen wie lange das gedauert hat
+2. Kuchendiagramm mit und ohne Prio 1/2 Präsentationsformen
+3. Precision Recall Matrix
+4. Pseudo-Code
+5. 
+
+
+              precision    recall  f1-score   support
+
+         ANA       0.00      0.00      0.00         6
+         BER       0.76      0.96      0.85      3669
+         CHR       0.00      0.00      0.00         7
+         ESS       0.00      0.00      0.00        36
+         FRG       0.00      0.00      0.00         1
+         GRF       0.26      0.05      0.08       174
+         INT       0.44      0.13      0.20       423
+         KOM       0.50      0.02      0.04       159
+         KTE       0.00      0.00      0.00        22
+         LES       0.00      0.00      0.00         1
+         LEX       0.00      0.00      0.00         2
+         PRM       0.00      0.00      0.00        16
+         REP       0.00      0.00      0.00        40
+         REZ       0.68      0.21      0.32       346
+         SAT       0.00      0.00      0.00         1
+         SER       0.04      0.02      0.03        51
+         TIT       0.00      0.00      0.00        37
+         WRT       0.00      0.00      0.00         9
+
+    accuracy                           0.73      5000
+   macro avg       0.15      0.08      0.08      5000
+weighted avg       0.66      0.73      0.66      5000
+
+
+Max Feature stehen auf 1500 häufigsten Wörter. Könnte man natürlich noch erhöhen.
+Stellschrauben, Verhähltnisse Matrialien. 
+
+In EG Mining vorstellen. In Presse vorstellen. Richtung Team Mining Ralph Walhöfer vorstellen. Ihre Einschätzung dazu.
+
+[[   75    17   705   481   261    99   254]
+ [   12   625   467  1474  3895   178  2112]
+ [   89   185 36234  4630  2319   530  1188]
+ [  100   205  3085 92527  1156   453  2232]
+ [   87   591  2619  4117 35477   351  2870]
+ [   28   117  1407  2229  1011  3545  2214]
+ [   70   408   608  2006  1244   464 81159]]
+ 
+ scaler__with_mean': False, 'sgd__alpha': 1.0, 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase'
+
+               precision    recall  f1-score   support
+
+         CHR       0.16      0.04      0.06      1892
+         ESS       0.29      0.07      0.11      8763
+         GRF       0.80      0.80      0.80     45175
+         INT       0.86      0.93      0.89     99758
+         KOM       0.78      0.77      0.78     46112
+         REP       0.63      0.34      0.44     10551
+         REZ       0.88      0.94      0.91     85959
+
+    accuracy                           0.84    298210
+   macro avg       0.63      0.56      0.57    298210
+weighted avg       0.82      0.84      0.82    298210
+2022-10-14 15:21:53.396902
+-1 day, 19:46:55.724696
