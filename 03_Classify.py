@@ -41,8 +41,9 @@ new = data[data['pform'].isin(liste)]
 
 #new.reset_index(drop=True, inplace=True)
 
-all = new
-#all = new.sample(n=5000, random_state=1)
+#
+# all = new
+all = new.sample(n=5000, random_state=1)
 #all['stripped_text'] = all['stripped_text'].str.split().str[:100].str.join(' ')
 #all['stripped_text'] = all['stripped_text'].apply(lambda x: ' '.join(x.split(' ')[:300]))
 
@@ -92,9 +93,9 @@ params = {
     "vect__lowercase": [False],
     "vect__stop_words": [german_stop_words],
     "scaler__with_mean": [False],
-    'sgd__kernel': ['rbf', 'sigmoid'],
-    'sgd__class_weight': ['balanced', 'None'],
-    'sgd__C': [0.1, 1.0],
+    'sgd__kernel': ['sigmoid'],
+    'sgd__class_weight': ['balanced'],
+    'sgd__C': [1.0],
     #'sgd__solver': ['liblinear', 'sag', 'saga'],
     #'sgd__class_weight': [None, 'balanced'],
     #'sgd__C' : [0.1, 1.0],

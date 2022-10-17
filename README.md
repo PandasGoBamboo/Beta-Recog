@@ -501,3 +501,8 @@ Report für: stripped
 weighted avg       0.82      0.84      0.82    298210
 2022-10-15 14:50:55.004688
 -1 day, 18:02:26.571392
+
+
+
+SVC mit 5k Daten
+'scaler__with_mean': False, 'sgd__C': 1.0, 'sgd__class_weight': 'balanced', 'sgd__kernel': 'sigmoid', 'sgd__max_iter': 5000, 'vect__lowercase':
