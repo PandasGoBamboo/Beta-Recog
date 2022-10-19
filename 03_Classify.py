@@ -1,39 +1,32 @@
 import pandas as pd 
 import pickle
-import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.metrics import confusion_matrix, classification_report
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import TfidfVectorizer, TfidfTransformer
-from sklearn.linear_model import SGDClassifier, LogisticRegression
-from sklearn.svm import SVC
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import KFold
-from sklearn.model_selection import cross_val_predict, GridSearchCV
 import nltk
 from nltk.corpus import stopwords
 from datetime import datetime
-import pickle
 import matplotlib.pyplot as plt
-from sklearn.metrics import plot_confusion_matrix
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.pipeline import Pipeline
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import SGDClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import cross_val_predict, GridSearchCV, KFold 
 
-
-# Counter für Dauer von Skriptausführung
+##### Zähler für Dauer von Skriptausführung
 startTime = datetime.now()
 print(startTime)
 
-############################ Datei laden
-
+############################ Dateien laden
 file = 'C:/Users/tschu/Desktop/BETA-RECOG/more_stripped_raw_data.pkl'
 
+### Stoppwortliste laden
 nltk.download('stopwords')
 german_stop_words = stopwords.words('german') 
 
 print('Ich roedel......')
 
+### 
 liste = ['CHR', 'ESS', 'REP', 'REZ', 'KOM', 'INT', 'GRF', 'REZ'] 
-#liste = ['REP', 'ESS', 'CHR']
 data = pd.read_pickle(file)
 
 #new = data[~data['pform'].isin(liste)]
@@ -41,13 +34,13 @@ new = data[data['pform'].isin(liste)]
 
 #new.reset_index(drop=True, inplace=True)
 
-#
-# all = new
-all = new.sample(n=5000, random_state=1)
+
+all = new
+#all = new.sample(n=50000, random_state=1)
 #all['stripped_text'] = all['stripped_text'].str.split().str[:100].str.join(' ')
 #all['stripped_text'] = all['stripped_text'].apply(lambda x: ' '.join(x.split(' ')[:300]))
 
-texts = all['volltext']
+texts = all['stripped_text']
 #texts = all['stripped_titel'] + all['stripped_sonst_titel'] + all['stripped_text']
 
 # Trainingsklassenaus
@@ -77,9 +70,9 @@ kf = KFold(n_splits=10, shuffle=True, random_state=42)
 vectorizier = TfidfVectorizer()
 
 #### Klassifikator
-#classifier = SGDClassifier()
+classifier = SGDClassifier()
 #classifier = LogisticRegression()
-classifier = SVC()
+#classifier = SVC()
 
 scaler = StandardScaler()
 
@@ -93,15 +86,8 @@ params = {
     "vect__lowercase": [False],
     "vect__stop_words": [german_stop_words],
     "scaler__with_mean": [False],
-    'sgd__kernel': ['sigmoid'],
     'sgd__class_weight': ['balanced'],
-    'sgd__C': [1.0],
-    #'sgd__solver': ['liblinear', 'sag', 'saga'],
-    #'sgd__class_weight': [None, 'balanced'],
-    #'sgd__C' : [0.1, 1.0],
-
-    #'sgd__loss': ['hinge'],
-    #'sgd__alpha': [1.0],
+    'sgd__loss': ['hinge'],
     'sgd__max_iter': [5000]
     }
 
@@ -124,7 +110,7 @@ print(' ')
 print(classification_report(y, y_pred))
 
 
-# filename = 'text_allfiles_model.sav'
-# pickle.dump(clf, open(filename, 'wb'))
+filename = 'text_allfiles_model.sav'
+pickle.dump(clf, open(filename, 'wb'))
 
 print(startTime - datetime.now())
