@@ -89,17 +89,15 @@ with open('nltk_german_classifier_data.pkl', 'rb') as f:
     tagger = pickle.load(f)
 
 # Einstellung um alle Dokumente zu mergen
-data = pd.read_pickle('more_raw_data.pkl')
+data = pd.read_pickle('more_stripped_raw_data.pkl')
 
-
-print(data.columns)
 # Ausführung des Codes für jeden Namen in der Liste
-text = data['volltext']
-titel = data['haupt_titel']
-sonst_titel = data['sonst_titel']
+#text = data['volltext']
+#titel = data['haupt_titel']
+#sonst_titel = data['sonst_titel']
 
 
-
+"""
 # Tokenisierung 
 transformed_text = tokenizeText(text)
 transformed_titel = tokenizeText(titel)
@@ -115,12 +113,11 @@ data['stripped_text'] = transformed_text[0]
 data.to_pickle('more_stripped_raw_data.pkl')
 print('Tokenized')
 
-
 """
 
 ############################ POS-Tagging
 
-pos = TagPOS_Text(transformed_text[0])
+pos = TagPOS_Text(data['stripped_text'])
 
 # Fügt Dataframe Spalten hinzu
 #data['tagged'] = pos (ACHTUNG: LANGE SÄTZE SCHRÄNKEN DIE SPEICHERUNG EIN)
@@ -133,7 +130,6 @@ lemmatized = lemmatizeText(pos)
 # Fügt Dataframe Spalten hinzu
 data['lemma'] = lemmatized
 
-data.to_pickle('prepro_raw_data.pkl')
-"""
+data.to_pickle('lemma_more_raw_data.pkl')
 
 print(datetime.now() - startTime)

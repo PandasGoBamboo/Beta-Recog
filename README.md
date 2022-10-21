@@ -521,3 +521,21 @@ SVC mit 5k Daten
 weighted avg       0.69      0.70      0.65      5000
 
 -1 day, 11:09:53.224965
+
+{'scaler__with_mean': False, 'sgd__class_weight': 'balanced', 'sgd__loss': 'hinge', 'sgd__max_iter': 5000, 'vect__lowercase': False, 'v
+
+          precision    recall  f1-score   support
+
+         CHR       0.05      0.59      0.09      1892
+         ESS       0.12      0.39      0.19      8763
+         GRF       0.63      0.61      0.62     45175
+         INT       0.84      0.69      0.76     99758
+         KOM       0.72      0.50      0.59     46112
+         REP       0.21      0.51      0.29     10551
+         REZ       0.88      0.66      0.75     85959
+         
+    accuracy                           0.62    298210
+   macro avg       0.49      0.56      0.47    298210
+weighted avg       0.75      0.62      0.67    298210
+2022-10-19 09:28:40.645255
+-1 day, 14:28:32.574536
