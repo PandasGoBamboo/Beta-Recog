@@ -1,16 +1,19 @@
-import pandas as pd 
+import json, csv, pandas as pd 
 import pickle
-import nltk
-from nltk.corpus import stopwords
-from datetime import datetime
-import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics import confusion_matrix, classification_report, plot_confusion_matrix 
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import SGDClassifier
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import cross_val_predict, GridSearchCV, KFold 
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score, cross_val_predict, GridSearchCV
+import nltk
+from nltk.corpus import stopwords
+from sklearn.metrics import confusion_matrix, classification_report, plot_confusion_matrix
+import matplotlib.pyplot as plt
+from datetime import datetime
+
 
 ##### Zähler für Dauer von Skriptausführung
 startTime = datetime.now()
@@ -65,16 +68,9 @@ kf = KFold(n_splits=10, shuffle=True, random_state=42)
 
 ############################ Pipeline Bestandteile
 
-#vectorizier = CountVectorizer()
-#tfidf = TfidfTransformer()
 vectorizier = TfidfVectorizer()
-
-#### Klassifikator
-classifier = SGDClassifier()
-#classifier = LogisticRegression()
-#classifier = SVC()
-
 scaler = StandardScaler()
+classifier = MultinomialNB()
 
 pipe = Pipeline([
     ('vect', vectorizier),
@@ -85,12 +81,10 @@ pipe = Pipeline([
 params = {
     "vect__lowercase": [False],
     "vect__stop_words": [german_stop_words],
-    "scaler__with_mean": [False],
-    'sgd__class_weight': ['balanced'],
-    'sgd__loss': ['hinge'],
-    'sgd__max_iter': [5000]
+    'scaler__with_mean': [False],
     }
 
+print(MultinomialNB().get_params().keys())
 print('Ich fitte jetzt')
 clf = GridSearchCV(pipe, param_grid = params, cv = kf )
 clf.fit(X, y)
@@ -110,7 +104,7 @@ print(' ')
 print(classification_report(y, y_pred))
 
 
-filename = 'text_allfiles_model.sav'
+filename = 'text_allfiles_NaiveBays_model.sav'
 pickle.dump(clf, open(filename, 'wb'))
 
 print(startTime - datetime.now())
